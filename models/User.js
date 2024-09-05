@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 import Location from "./Location.js";
-import mongooseValidator from "mongoose-unique-validator";
-
-//const uniqueValidator = require("mongoose-unique-validator");
+import uniqueValidator from "mongoose-unique-validator";
 
 const userSchema = mongoose.Schema(
   {
@@ -37,7 +35,7 @@ const userSchema = mongoose.Schema(
   }
 );
 
-//userSchema.plugin(uniqueValidator);
+userSchema.plugin(uniqueValidator);
 
 const User = mongoose.model("User", userSchema);
 
