@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import connectDB from "../config/db.js";
 import User from "../models/User.js";
+import "dotenv/config";
 
 async function userSeeders() {
   connectDB();
@@ -8,14 +9,14 @@ async function userSeeders() {
     name: "Julian",
     lastName: "Castro",
     email: "julicastro@gmail.com",
-    password: "apdfpjo",
+    password: process.env.USER_PASSWORD_SEEDER,
     typeUser: "admin",
   });
   await User.create({
     name: "Julian",
     lastName: "Castro",
     email: "julicastro@gmail.com",
-    password: "apdfpjo",
+    password: process.env.USER_PASSWORD_SEEDER,
     typeUser: "admin",
   });
 

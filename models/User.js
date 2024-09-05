@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Location from "./Location.js";
 import uniqueValidator from "mongoose-unique-validator";
+import bycript from "bcryptjs";
 
 const userSchema = mongoose.Schema(
   {
@@ -36,6 +37,12 @@ const userSchema = mongoose.Schema(
 );
 
 userSchema.plugin(uniqueValidator);
+
+userSchema.pre("save", async function (next) {
+  const hash = await bycript.hash(this.password, 10);
+  this.password = hash;
+  next();
+});
 
 const User = mongoose.model("User", userSchema);
 
