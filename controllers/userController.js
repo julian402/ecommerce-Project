@@ -24,7 +24,43 @@ async function create(req, res) {
   }
 }
 
+async function update(req, res) {
+  try {
+    const user = await User.findById(req.auth.id);
+    if (user !== null) {
+      const { name, lastName, email, password } = req.body;
+      user.name = name || user.name;
+      user.lastName = lastName || user.lastName;
+      user.email = email || user.email;
+      user.password = password || user.password;
+      await user.save();
+      return res.status(200).json(user);
+    } else {
+      return res.status(404).json({ error: "User not found" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function destroy(req, res) {
+  try {
+    const userToDelete = await User.findById(req.auth.id);
+    if (userToDelete !== null) {
+      userToDelete.deleteAt = Date.now();
+      await userToDelete.save();
+      return res.status(200).json({ message: "User deleted successfully" });
+    } else {
+      return res.status(404).json({ error: "User not exist" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default {
   getAll: getAll,
   create: create,
+  update: update,
+  destroy: destroy,
 };
