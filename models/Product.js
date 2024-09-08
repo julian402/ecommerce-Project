@@ -27,6 +27,7 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    images:[String],
     deleteAt: {
       type: Date,
       default: null,

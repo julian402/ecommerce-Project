@@ -10,13 +10,15 @@ async function userSeeders() {
     lastName: "Castro",
     email: "julicastro@gmail.com",
     password: process.env.USER_PASSWORD_SEEDER,
+    avatar:'userGeneric.png',
     typeUser: "admin",
   });
   await User.create({
     name: "Julian",
     lastName: "Castro",
-    email: "julicastro@gmail.com",
+    email: "julicastrotr@gmail.com",
     password: process.env.USER_PASSWORD_SEEDER,
+    avatar:'userGeneric.png',
     typeUser: "admin",
   });
 

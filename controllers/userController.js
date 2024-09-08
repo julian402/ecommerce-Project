@@ -16,6 +16,7 @@ async function create(req, res) {
       lastName: req.body.lastName,
       email: req.body.email,
       password: req.body.password,
+      avatar: req.file.filename,
       typeUser: req.body.typeUser,
     });
     return res.status(201).json(newUser);
@@ -29,10 +30,12 @@ async function update(req, res) {
     const user = await User.findById(req.auth.id);
     if (user !== null) {
       const { name, lastName, email, password } = req.body;
+      const avatar = req.file.filename;
       user.name = name || user.name;
       user.lastName = lastName || user.lastName;
       user.email = email || user.email;
       user.password = password || user.password;
+      user.avatar = avatar || user.avatar;
       await user.save();
       return res.status(200).json(user);
     } else {
