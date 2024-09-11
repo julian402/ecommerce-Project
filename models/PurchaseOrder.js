@@ -6,7 +6,6 @@ import Location from "./Location.js";
 const purchaseOrderSchema = mongoose.Schema(
   {
     amount: {
-      //Validar
       type: Number,
       required: true,
     },
@@ -14,7 +13,6 @@ const purchaseOrderSchema = mongoose.Schema(
     products: [
       {
         product: {
-          //Validar
           type: mongoose.Types.ObjectId,
           ref: "Product",
         },
@@ -32,6 +30,7 @@ const purchaseOrderSchema = mongoose.Schema(
     paymentMet: {
       type: String,
       required: true,
+      enum:['Credit_Card','PSE','Mercado Pago']
     },
     address: {
       type: mongoose.Types.ObjectId,

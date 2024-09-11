@@ -5,22 +5,27 @@ const productCategorySchema = mongoose.Schema(
     name: {
       type: String,
       required: true,
+      default:null,
     },
     description: {
       type: String,
       required: true,
+      default:null,
     },
     gender: {
       type: String,
       required: true,
+      default:null,
     },
     size: {
       type: String,
       required: true,
+      default:null,
     },
     sale: {
       type: String,
       required: true,
+      default:null,
     },
     deleteAt: {
       type: Date,

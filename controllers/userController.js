@@ -21,7 +21,9 @@ async function create(req, res) {
     });
     return res.status(201).json(newUser);
   } catch (error) {
-    console.log(error);
+    if (error.errors.email.kind === 'unique') {
+      return res.status(406).json({ message: "email invalid prove other" });
+    }
   }
 }
 

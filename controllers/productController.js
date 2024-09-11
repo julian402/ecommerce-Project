@@ -1,8 +1,9 @@
 import Product from "../models/Product.js";
+import ProductCategory from "../models/ProductCategory.js";
 
 async function getAll(req, res) {
   try {
-    const products = await Product.find({ deleteAt: null });
+    const products = await Product.find({ deleteAt: null }).populate('category',['-_id','name','gender']);
     console.log(`[Product getAll]: ${req}`);
     return res.status(200).json(products);
   } catch (error) {
@@ -39,7 +40,7 @@ async function create(req, res) {
       images: imagesArray,
     });
 
-    return res.status(200).json({message: `Product create successfully ${newProduct} `});
+    return res.status(200).json({message: `Product create successfully`});
   } catch (error) {
     console.log(error);
   }
@@ -76,10 +77,10 @@ async function update(req, res) {
 
 async function destroy(req, res) {
     try {
-      const userToDelete = await Product.findById(req.body.id);
-      if (userToDelete !== null) {
-        userToDelete.deleteAt = Date.now();
-        await userToDelete.save();
+      const producToDelete = await Product.findById(req.body.id);
+      if (producToDelete !== null) {
+        producToDelete.deleteAt = Date.now();
+        await producToDelete.save();
         return res.status(200).json({ message: "Product deleted successfully" });
       } else {
         return res.status(404).json({ error: "Product not exist" });
