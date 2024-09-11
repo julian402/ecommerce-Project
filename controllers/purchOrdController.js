@@ -7,7 +7,15 @@ async function getAll(req, res) {
   try {
     const orders = await PurchaseOrder.find({ deleteAt: null })
       .populate("user", ["-_id", "name", "lastName", "email"])
-      .populate("products.product", ["-_id", "-stock", "-category"]);
+      .populate({
+        path: "products.product",
+        select: ["-_id", "-stock", "-sale"],
+        populate: {
+          path: "category",
+          select: ["-_id", "name", "gender", "sale"],
+        },
+      });
+    //.populate("products.product", ["-_id", "-stock", "-category"]);
     return res.status(200).json({ orders });
   } catch (error) {
     console.log(error);
@@ -16,16 +24,25 @@ async function getAll(req, res) {
 }
 
 async function getByuserId(req, res) {
-  try{
-    const orders = await PurchaseOrder.find({user: req.auth.id})
-    if(orders !== null){
-      return res.status(200).json(orders)
+  try {
+    const orders = await PurchaseOrder.find({ user: req.auth.id })
+      .populate("user", ["-_id", "name", "lastName", "email"])
+      .populate({
+        path: "products.product",
+        select: ["-_id", "-stock", "-sale"],
+        populate: {
+          path: "category",
+          select: ["-_id", "name", "gender", "sale"],
+        },
+      });
+    //.populate("products.product", ["-_id", "-stock", "-category"]);
+    if (orders !== null) {
+      return res.status(200).json(orders);
     }
-    return res.json({message: 'not exist order for this user'})
-
-  } catch(error){
-    console.log(error)
-    return res.status(500).json({message:'Internal server Error'})
+    return res.json({ message: "not exist order for this user" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Internal server Error" });
   }
 }
 
@@ -54,13 +71,15 @@ async function destroy(req, res) {
     if (order !== null) {
       order.deleteAt = Date.now();
       order.save();
-      return res.status(200).json({message: 'Purchase Order delete successfully'})
+      return res
+        .status(200)
+        .json({ message: "Purchase Order delete successfully" });
     }
-    return res.json({message: 'Not exist Purchase order with this id'})
+    return res.json({ message: "Not exist Purchase order with this id" });
   } catch (error) {
     console.log(error);
     return res.status(500).json("Internal server error");
   }
 }
 
-export default { getAll, create, destroy,getByuserId };
+export default { getAll, create, destroy, getByuserId };
