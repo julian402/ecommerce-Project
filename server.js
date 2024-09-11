@@ -4,7 +4,9 @@ import path from 'path'
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
-import productRoutes from './routes/productRoutes.js'
+import productRoutes from './routes/productRoutes.js';
+//edison
+import CategoriRoutes from "./routes/CategoriRoutes.js";
 
 const app = express();
 const PORT = 3000;
@@ -23,8 +25,12 @@ connectDB();
 app.use(userRoutes);
 app.use(authRoutes);
 app.use(productRoutes);
+//edison
+app.use(CategoriRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
   console.log("http://localhost:3000");
-});
+}); 
+
+ 
