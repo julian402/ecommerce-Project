@@ -7,6 +7,7 @@ import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import purchOrdRoutes from "./routes/purchOrdRoutes.js";
+import locationRoutes from "./routes/locationRoutes.js"
 
 const app = express();
 const PORT = 3000;
@@ -25,6 +26,7 @@ app.use(userRoutes);
 app.use(authRoutes);
 app.use(productRoutes);
 app.use(purchOrdRoutes);
+app.use(locationRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
