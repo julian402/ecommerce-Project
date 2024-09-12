@@ -1,12 +1,13 @@
-import location from "../models/Location.js";
+import Location from "../models/Location.js";
 import User from "../models/User.js";
 
 async function getAll(req, res) {
   try {
-    const locations = await PurchaseOrder.find({ deleteAt: null }).populate(
+    const locations = await Location.find({ deleteAt: null }).populate(
       "user",
       ["-_id", "name", "lastName", "email"]
     );
+    return res.status(200).json({ locations });
   } catch (error) {
     res.status(500).json({ message: "Error al obtener ubicaciones", error });
   }
@@ -35,7 +36,7 @@ async function create(req, res) {
     const newLocation = await Location.create({
       city: city,
       zipCode: zipCode,
-      user: user,
+     // user: user,
       address: address,
     });
     return res.status(201).json("Location create successfully");
