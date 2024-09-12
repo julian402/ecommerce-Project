@@ -19,7 +19,7 @@ async function create(req, res) {
       avatar: req.file.filename,
       typeUser: req.body.typeUser,
     });
-    return res.status(201).json(newUser);
+    return res.status(201).json({message: 'user create successfully'});
   } catch (error) {
     if (error.errors.email.kind === 'unique') {
       return res.status(406).json({ message: "email invalid prove other" });
