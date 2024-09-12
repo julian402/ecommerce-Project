@@ -22,10 +22,11 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    avatar:String,
+    avatar: { type: String, default: "userGeneric.png" },
     typeUser: {
       type: String,
       required: true,
+      enum:['Admin','Customer']
     },
     deleteAt: {
       type: Date,
