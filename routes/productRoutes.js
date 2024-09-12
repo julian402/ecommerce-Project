@@ -1,5 +1,6 @@
 import express from "express";
 import productController from "../controllers/productController.js";
+
 import { expressjwt } from "express-jwt";
 import upload from "../config/multerConfig.js";
 
