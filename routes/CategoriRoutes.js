@@ -9,6 +9,6 @@ const router = express.Router();
 router.get("/api/productCategory", CategoryControllers.getALL);
 router.get("/api/productCategory/:id", CategoryControllers.getById);//traer producto de categoria por id
 router.post("/api/productCategory", CategoryControllers.create);// se inserta categoria
-router.patch("/api/productCategory",expressjwt({secret:process.env.JWT_SECRET,algorithms:['HS256']}),upload.array('images',10),CategoryControllers.update)
+router.patch("/api/productCategory/:id", CategoryControllers.update); //actualizar
 router.delete("/api/productCategory", CategoryControllers.destroy)
 export default router

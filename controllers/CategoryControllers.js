@@ -39,7 +39,22 @@ async function create(req, res) {
   }
 }
 
-async function update(req, res) {}
+async function update(req, res) {
+  console.log(req.params.id);
+  const productCategoryToUpdate = await ProductCategory.findById(req.params.id);
+  
+  const { name, description, gender, size, sale } = req.body;
+
+  productCategoryToUpdate.name = name || productCategoryToUpdate.name;
+  productCategoryToUpdate.description =  description || productCategoryToUpdate.description;
+  productCategoryToUpdate.gender = gender || productCategoryToUpdate.gender;
+  productCategoryToUpdate.size = size || productCategoryToUpdate.size;
+  productCategoryToUpdate.sale = sale || productCategoryToUpdate.sale;
+
+  await productCategoryToUpdate.save();
+
+  return res.json("La categoria ha sido actualizada")
+}
 
 async function destroy(req, res) {}
 
