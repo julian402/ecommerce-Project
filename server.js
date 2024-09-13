@@ -12,6 +12,7 @@ import CategoriRoutes from "./routes/CategoriRoutes.js";
 
 import productRoutes from "./routes/productRoutes.js";
 import purchOrdRoutes from "./routes/purchOrdRoutes.js";
+import locationRoutes from "./routes/locationRoutes.js"
 
 
 const app = express();
@@ -35,6 +36,7 @@ app.use(productRoutes);
 app.use(CategoriRoutes);
 
 app.use(purchOrdRoutes);
+app.use(locationRoutes);
 
 
 app.listen(PORT, () => {
