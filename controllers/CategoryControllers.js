@@ -56,7 +56,11 @@ async function update(req, res) {
   return res.json("La categoria ha sido actualizada")
 }
 
-async function destroy(req, res) {}
+async function destroy(req, res) {
+const deleteProductCategory = await ProductCategory.deleteOne({ _id: req.params.id});
+console.log(deleteProductCategory);
+return res.json("La categoria se ha eliminado");
+}
 
 export default {
   getALL,
