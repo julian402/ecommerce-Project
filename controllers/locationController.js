@@ -53,7 +53,7 @@ async function create(req, res) {
 
 async function update(req, res) {
   try {
-    const updateLocation = await Location.findById(req.params.id);
+    const updateLocation = await Location.findById(req.body.id);
     if (updateLocation) {
       const { city, zipCode, address } = req.body;
 
@@ -74,7 +74,7 @@ async function update(req, res) {
 
 async function destroy(req, res) {
   try {
-    const locationToDelete = await Location.findById(req.params.id);
+    const locationToDelete = await Location.findById(req.body.id);
 
     if (locationToDelete !== null) {
       locationToDelete.deleteAt = Date.now();

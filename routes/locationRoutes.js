@@ -13,12 +13,12 @@ router.post(
 );
 
 router.patch(
-  "/api/locations/:id",
+  "/api/locations",
   expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
   locationController.update
 );
 router.delete(
-  "/api/locations/:id",
+  "/api/locations",
   expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
   locationController.destroy
 );

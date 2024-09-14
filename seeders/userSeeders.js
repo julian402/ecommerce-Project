@@ -11,7 +11,7 @@ async function userSeeders() {
     email: "julicastro@gmail.com",
     password: process.env.USER_PASSWORD_SEEDER,
     avatar:'userGeneric.png',
-    typeUser: "admin",
+    typeUser: "Admin",
   });
   await User.create({
     name: "Julian",
@@ -19,7 +19,7 @@ async function userSeeders() {
     email: "julicastrotr@gmail.com",
     password: process.env.USER_PASSWORD_SEEDER,
     avatar:'userGeneric.png',
-    typeUser: "admin",
+    typeUser: "Admin",
   });
 
   console.log("Se han creados los Seeders de manera Exitosa");

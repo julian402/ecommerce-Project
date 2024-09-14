@@ -41,7 +41,7 @@ async function create(req, res) {
 
 async function update(req, res) {
   console.log(req.params.id);
-  const productCategoryToUpdate = await ProductCategory.findById(req.params.id);
+  const productCategoryToUpdate = await ProductCategory.findById(req.body.id);
   
   const { name, description, gender, size, sale } = req.body;
 
@@ -57,7 +57,7 @@ async function update(req, res) {
 }
 
 async function destroy(req, res) {
-const deleteProductCategory = await ProductCategory.deleteOne({ _id: req.params.id});
+const deleteProductCategory = await ProductCategory.deleteOne({ _id: req.body.id});
 console.log(deleteProductCategory);
 return res.json("La categoria se ha eliminado");
 }
