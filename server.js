@@ -12,11 +12,9 @@ import CategoriRoutes from "./routes/CategoriRoutes.js";
 
 import productRoutes from "./routes/productRoutes.js";
 import purchOrdRoutes from "./routes/purchOrdRoutes.js";
-import locationRoutes from "./routes/locationRoutes.js"
-
+import locationRoutes from "./routes/locationRoutes.js";
 
 const app = express();
-const PORT = 3000;
 
 const upoadDir = path.join(import.meta.dirname, "public/upload");
 
@@ -38,10 +36,6 @@ app.use(CategoriRoutes);
 app.use(purchOrdRoutes);
 app.use(locationRoutes);
 
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  console.log("http://localhost:3000");
-}); 
-
- 
+app.listen(process.env.APP_PORT, () => {
+  console.log(`Server is running on port ${process.env.APP_PORT}`);
+});

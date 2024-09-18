@@ -1,6 +1,7 @@
 import express from "express";
 import { expressjwt } from "express-jwt";
 import purchOrdController from "../controllers/purchOrdController.js";
+import validateFields from "../middleware/validateFields.js";
 
 const router = express.Router();
 
@@ -11,15 +12,15 @@ router.get(
 );
 
 router.get(
-    "/api/purchaseorder/id",
-    expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
-    purchOrdController.getByuserId
-  );
-  
+  "/api/purchaseorder/id",
+  expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
+  purchOrdController.getByuserId
+);
 
 router.post(
   "/api/purchaseorder",
   expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
+  validateFields,
   purchOrdController.create
 );
 router.delete(
