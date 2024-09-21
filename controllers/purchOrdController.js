@@ -14,7 +14,7 @@ async function getAll(req, res) {
           path: "category",
           select: ["-_id", "name", "gender", "sale"],
         },
-      });
+      }).populate('address',["city","zipCode","address"]);
     //.populate("products.product", ["-_id", "-stock", "-category"]);
     return res.status(200).json({ orders });
   } catch (error) {

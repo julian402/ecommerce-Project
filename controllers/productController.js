@@ -71,7 +71,7 @@ async function update(req, res) {
       await product.save();
       return res.status(200).json(product);
     } else {
-      return res.status(404).json({ error: "User not found" });
+      return res.status(404).json({ error: "Product not found" });
     }
   } catch (error) {
     console.log(error);

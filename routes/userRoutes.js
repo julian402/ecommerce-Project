@@ -5,6 +5,7 @@ import userController from "../controllers/userController.js";
 import userValidator from "../middleware/userValidator.js";
 import validateFields from "../middleware/validateFields.js";
 import "dotenv/config";
+import tokenValidator from "../middleware/tokenValidator.js";
 
 const router = express.Router();
 
@@ -17,13 +18,13 @@ router.post(
   userController.create
 );
 router.patch(
-  "/api/users",
+  "/api/users",tokenValidator,
   expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
   upload.single("avatar"),
   userController.update
 );
 router.delete(
-  "/api/users",
+  "/api/users",tokenValidator,
   expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
   userController.destroy
 );

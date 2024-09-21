@@ -3,7 +3,7 @@ import ProductCategory from "../models/ProductCategory.js";
 
 async function getALL(req, res) {
   try {
-    const categori = await ProductCategory.find();
+    const categori = await ProductCategory.find({ deleteAt: null });
     return res.json(categori);
   } catch (error) {
     // console.log(error);
@@ -40,26 +40,43 @@ async function create(req, res) {
 }
 
 async function update(req, res) {
-  console.log(req.params.id);
-  const productCategoryToUpdate = await ProductCategory.findById(req.body.id);
-  
-  const { name, description, gender, size, sale } = req.body;
+  try {
+    const productCategoryToUpdate = await ProductCategory.findById(req.body.id);
 
-  productCategoryToUpdate.name = name || productCategoryToUpdate.name;
-  productCategoryToUpdate.description =  description || productCategoryToUpdate.description;
-  productCategoryToUpdate.gender = gender || productCategoryToUpdate.gender;
-  productCategoryToUpdate.size = size || productCategoryToUpdate.size;
-  productCategoryToUpdate.sale = sale || productCategoryToUpdate.sale;
+    if (productCategoryToUpdate !== null) {
+      const { name, description, gender, size, sale } = req.body;
 
-  await productCategoryToUpdate.save();
+      productCategoryToUpdate.name = name || productCategoryToUpdate.name;
+      productCategoryToUpdate.description =
+        description || productCategoryToUpdate.description;
+      productCategoryToUpdate.gender = gender || productCategoryToUpdate.gender;
+      productCategoryToUpdate.size = size || productCategoryToUpdate.size;
+      productCategoryToUpdate.sale = sale || productCategoryToUpdate.sale;
 
-  return res.json("La categoria ha sido actualizada")
+      await productCategoryToUpdate.save();
+
+      return res.json("La categoria ha sido actualizada");
+    } else {
+      return res.status(404).json({ error: "Category not found" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 async function destroy(req, res) {
-const deleteProductCategory = await ProductCategory.deleteOne({ _id: req.body.id});
-console.log(deleteProductCategory);
-return res.json("La categoria se ha eliminado");
+  try {
+    const deleteProductCategory = await ProductCategory.findById(req.body.id);
+    if (deleteProductCategory !== null) {
+      deleteProductCategory.deleteAt = Date.now();
+      await deleteProductCategory.save();
+      return res.json("La categoria se ha eliminado");
+    } else{
+      return res.status(404).json({error: "Catagory Not exist"})
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export default {
