@@ -17,7 +17,7 @@ async function getAll(req, res) {
 
 async function getLocationById(req, res) {
   try {
-    const location = await Location.findById(req.params.id).populate("user", [
+    const location = await Location.find({user: req.auth.id}).populate("user", [
       "-_id",
       "name",
       "lastName",

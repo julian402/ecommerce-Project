@@ -8,7 +8,8 @@ import tokenValidator from "../middleware/tokenValidator.js";
 const router = express.Router();
 
 router.get("/api/locations", locationController.getAll);
-router.get("/api/locations/:id", locationController.getLocationById);
+router.get("/api/locations/id",tokenValidator,
+  expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }), locationController.getLocationById);
 router.post(
   "/api/locations",tokenValidator,
   expressjwt({ secret: process.env.JWT_SECRET, algorithms: ["HS256"] }),
