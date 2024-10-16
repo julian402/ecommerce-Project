@@ -6,21 +6,21 @@ const productValidator = [
   check("name", "Name must be at least 3 characters").isLength({ min: 3 }),
 
   check("size", "Size is required").not().isEmpty(),
-  check(
-    "size",
-    "Size must be a valid clothing size (XS, S, M, L, XL, etc.) or a valid shoe size (1-40)"
-  ).custom((value) => {
-    const clothingSizes = ["XS", "S", "M", "L", "XL", "XXL"];
-    const shoeSize = parseInt(value, 10);
+  // check(
+  //   "size",
+  //   "Size must be a valid clothing size (XS, S, M, L, XL, etc.) or a valid shoe size (1-40)"
+  // ).custom((value) => {
+  //   const clothingSizes = ["XS", "S", "M", "L", "XL", "XXL"];
+  //   const shoeSize = parseInt(value, 10);
 
-    // Valida si es talla de zapato o ropa
-    if (clothingSizes.includes(value) || (shoeSize >= 1 && shoeSize <= 40)) {
-      return true;
-    }
-    throw new Error(
-      "Invalid size: Please enter a valid clothing or shoe size."
-    );
-  }),
+  //   // Valida si es talla de zapato o ropa
+  //   if (clothingSizes.includes(value) || (shoeSize >= 1 && shoeSize <= 40)) {
+  //     return true;
+  //   }
+  //   throw new Error(
+  //     "Invalid size: Please enter a valid clothing or shoe size."
+  //   );
+  // }),
 
   // Validación para el stock (requerido y debe ser un número entero positivo)
   check("stock", "Stock is required").not().isEmpty(),

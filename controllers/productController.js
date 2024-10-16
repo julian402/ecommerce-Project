@@ -28,7 +28,7 @@ async function getAllByName(req, res) {
 
 async function create(req, res) {
   try {
-    const { name, size, stock, price, category, brand } = req.body;
+    const { name, size, stock, price, category, brand, description, sale} = req.body;
     const imagesArray = [];
 
     for (const file of req.files) {
@@ -43,6 +43,8 @@ async function create(req, res) {
       category: category,
       brand: brand,
       images: imagesArray,
+      description: description,
+      sale:sale,
     });
 
     return res.status(200).json({ message: `Product create successfully` });
@@ -55,7 +57,7 @@ async function update(req, res) {
   try {
     const product = await Product.findById(req.body.id);
     if (product !== null) {
-      const { name, size, stock, price, category, brand } = req.body;
+      const { name, size, stock, price, category, brand, description, sale} = req.body;
       const imagesArray = [];
 
       for (const file of req.files) {
@@ -68,6 +70,8 @@ async function update(req, res) {
       product.category = category || product.category;
       product.brand = brand || product.brand;
       product.images = imagesArray || product.images;
+      product.description = description || product.description;
+      product.sale = sale || product.sale;
       await product.save();
       return res.status(200).json(product);
     } else {

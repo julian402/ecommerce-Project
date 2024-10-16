@@ -8,7 +8,7 @@ const productSchema = mongoose.Schema(
       required: true,
     },
     size: {
-      type: String,
+      type: Array,
       required: true,
     },
     stock: {
@@ -32,6 +32,14 @@ const productSchema = mongoose.Schema(
       type: Date,
       default: null,
     },
+    description:{
+      type: String,
+      required:true,
+    },
+    sale:{
+      type: Number,
+      required: true,
+    }
   },
   {
     timestamps: true,
