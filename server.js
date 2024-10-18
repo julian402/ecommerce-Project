@@ -1,4 +1,5 @@
 import "dotenv/config";
+import cors from 'cors';
 import express from "express";
 import fs from "fs";
 import path from "path";
@@ -16,6 +17,7 @@ import purchOrdRoutes from "./routes/purchOrdRoutes.js";
 import locationRoutes from "./routes/locationRoutes.js";
 
 const app = express();
+app.use(cors())
 
 const upoadDir = path.join(import.meta.dirname, "public/upload");
 
