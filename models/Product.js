@@ -27,19 +27,19 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    images:[String],
+    images: [String],
     deleteAt: {
       type: Date,
       default: null,
     },
-    description:{
+    description: {
       type: String,
-      required:true,
-    },
-    sale:{
-      type: Number,
       required: true,
-    }
+    },
+    sale: {
+      type: Number,
+      required: null,
+    },
   },
   {
     timestamps: true,

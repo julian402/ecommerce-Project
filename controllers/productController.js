@@ -14,21 +14,35 @@ async function getAll(req, res) {
   }
 }
 
+// async function getAllByName(req, res) {
+//   try {
+//     const id = req.params.id;
+//     const products = await Product.find({
+//       id: { $regex: `${id}` },
+//     }).populate("category", ["-_id", "name", "gender"]);
+//     return res.status(200).json(products);
+//   } catch (error) {
+//     console.log(`[Product GetAllByName] ${error}`);
+//   }
+// }
+
 async function getAllByName(req, res) {
   try {
-    const name = req.params.name;
-    const products = await Product.find({
-      name: { $regex: `${name}` },
-    }).populate("category", ["-_id", "name", "gender"]);
-    return res.status(200).json(products);
-  } catch (error) {
-    console.log(`[Product GetAllByName] ${error}`);
+    const product = await Product.findById(req.params.id).populate("category");
+    if (product.deletedAt !== null) {
+      res.status(200).json(product);
+    } else {
+      res.status(404).json("Producto no encontrado");
+    }
+  } catch (err) {
+    res.status(500).json("Error del servidor");
   }
 }
 
 async function create(req, res) {
   try {
-    const { name, size, stock, price, category, brand, description, sale} = req.body;
+    const { name, size, stock, price, category, brand, description, sale } =
+      req.body;
     const imagesArray = [];
 
     for (const file of req.files) {
@@ -44,7 +58,7 @@ async function create(req, res) {
       brand: brand,
       images: imagesArray,
       description: description,
-      sale:sale,
+      sale: sale,
     });
 
     return res.status(200).json({ message: `Product create successfully` });
@@ -57,7 +71,8 @@ async function update(req, res) {
   try {
     const product = await Product.findById(req.body.id);
     if (product !== null) {
-      const { name, size, stock, price, category, brand, description, sale} = req.body;
+      const { name, size, stock, price, category, brand, description, sale } =
+        req.body;
       const imagesArray = [];
 
       for (const file of req.files) {
