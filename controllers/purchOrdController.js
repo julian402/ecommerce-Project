@@ -14,7 +14,8 @@ async function getAll(req, res) {
           path: "category",
           select: ["-_id", "name", "gender", "sale"],
         },
-      }).populate('address',["city","zipCode","address"]);
+      })
+      .populate("address", ["city", "zipCode", "address"]);
     //.populate("products.product", ["-_id", "-stock", "-category"]);
     return res.status(200).json({ orders });
   } catch (error) {
@@ -48,14 +49,15 @@ async function getByuserId(req, res) {
 
 async function create(req, res) {
   try {
+    const location = await Location.findOne({ user: req.auth.id });
     const { amount, products, paymentMet, address } = req.body;
-    const user = req.auth.id;
+    // const user = req.auth.id;
     const newPurchaseOrder = await PurchaseOrder.create({
       amount: amount,
       products: products,
-      user: user,
+      user: req.auth.id,
       paymentMet: paymentMet,
-      address: address,
+      address: location._id,
     });
     return res.status(201).json("Purchase Order create successfully");
   } catch (error) {
