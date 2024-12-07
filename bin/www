@@ -1,0 +1,16 @@
+import app from "../server.js";
+import http from "http";
+const port = process.env.APP_PORT;
+
+app.set("port", port);
+
+if (process.env.NODE_ENV === "test") {
+  const server = http.createServer(app);
+  server.listen(port);
+  server.on("error", () => {
+    console.log("error conectando el server");
+  });
+  server.on("listening", () => {
+    console.log("Server On!!");
+  });
+}

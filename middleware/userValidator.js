@@ -34,7 +34,7 @@ const userValidator = [
   check(
     "password",
     "Password must contain at least one special character"
-  ).matches(/[\W_]/),
+  ).matches(/[\W_]/).withMessage('Error Contraseña'),
 ];
 
 export default userValidator;

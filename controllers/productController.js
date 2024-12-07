@@ -34,7 +34,7 @@ async function getAllByName(req, res) {
     } else {
       res.status(404).json("Producto no encontrado");
     }
-  } catch (err) {
+  } catch (error) {
     res.status(500).json("Error del servidor");
   }
 }

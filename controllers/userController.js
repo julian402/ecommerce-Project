@@ -1,15 +1,16 @@
 import User from "../models/User.js";
 
-async function getAll(req, res) {
+export async function getAll(req, res) {
   try {
     const users = await User.find();
     return res.status(200).json(users);
   } catch (error) {
     console.log(error);
+    return res.status(500).json(error.message);
   }
 }
 
-async function create(req, res) {
+export async function create(req, res) {
   try {
     const newUser = await User.create({
       name: req.body.name,
@@ -25,10 +26,11 @@ async function create(req, res) {
     if (error.errors?.email?.kind === "unique") {
       return res.status(406).json({ message: "email invalid prove other" });
     }
+    return res.status(500).json(error.message)
   }
 }
 
-async function update(req, res) {
+export async function update(req, res) {
   try {
     const user = await User.findById(req.auth.id);
     if (user !== null) {
@@ -40,16 +42,18 @@ async function update(req, res) {
       user.password = password || user.password;
       user.avatar = avatar || user.avatar;
       await user.save();
+      console.log(await user.save());
       return res.status(200).json(user);
     } else {
       return res.status(404).json({ error: "User not found" });
     }
   } catch (error) {
     console.log(error);
+    return res.status(500).json(error.message)
   }
 }
 
-async function destroy(req, res) {
+export async function destroy(req, res) {
   try {
     const userToDelete = await User.findById(req.auth.id);
     if (userToDelete !== null) {
