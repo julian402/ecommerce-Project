@@ -16,10 +16,8 @@ import productRoutes from "./routes/productRoutes.js";
 import purchOrdRoutes from "./routes/purchOrdRoutes.js";
 import locationRoutes from "./routes/locationRoutes.js";
 
-const app = express();
+export const app = express();
 app.use(cors())
-
-
 
 app.use(express.static("public/upload"))
 
