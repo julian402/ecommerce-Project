@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1733605892976" clover="3.2.0">
-  <project timestamp="1733605892976" name="All files">
-    <metrics statements="35" coveredstatements="31" conditionals="16" coveredconditionals="9" methods="4" coveredmethods="4" elements="55" coveredelements="44" complexity="0" loc="35" ncloc="35" packages="1" files="1" classes="1"/>
+<coverage generated="1733784442051" clover="3.2.0">
+  <project timestamp="1733784442051" name="All files">
+    <metrics statements="36" coveredstatements="35" conditionals="16" coveredconditionals="10" methods="4" coveredmethods="4" elements="56" coveredelements="49" complexity="0" loc="36" ncloc="36" packages="1" files="1" classes="1"/>
     <file name="userController.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\controllers\userController.js">
-      <metrics statements="35" coveredstatements="31" conditionals="16" coveredconditionals="9" methods="4" coveredmethods="4"/>
+      <metrics statements="36" coveredstatements="35" conditionals="16" coveredconditionals="10" methods="4" coveredmethods="4"/>
       <line num="4" count="2" type="stmt"/>
       <line num="5" count="2" type="stmt"/>
       <line num="6" count="1" type="stmt"/>
@@ -27,18 +27,19 @@
       <line num="42" count="1" type="cond" truecount="1" falsecount="1"/>
       <line num="43" count="1" type="cond" truecount="1" falsecount="1"/>
       <line num="44" count="1" type="stmt"/>
-      <line num="45" count="0" type="stmt"/>
+      <line num="45" count="1" type="stmt"/>
       <line num="47" count="1" type="stmt"/>
-      <line num="50" count="2" type="stmt"/>
-      <line num="51" count="2" type="stmt"/>
-      <line num="56" count="1" type="stmt"/>
-      <line num="57" count="1" type="stmt"/>
-      <line num="58" count="1" type="cond" truecount="1" falsecount="1"/>
+      <line num="50" count="1" type="stmt"/>
+      <line num="51" count="1" type="stmt"/>
+      <line num="56" count="3" type="stmt"/>
+      <line num="57" count="3" type="stmt"/>
+      <line num="58" count="2" type="cond" truecount="2" falsecount="0"/>
       <line num="59" count="1" type="stmt"/>
       <line num="60" count="1" type="stmt"/>
-      <line num="61" count="0" type="stmt"/>
-      <line num="63" count="0" type="stmt"/>
+      <line num="61" count="1" type="stmt"/>
+      <line num="63" count="1" type="stmt"/>
       <line num="66" count="1" type="stmt"/>
+      <line num="67" count="1" type="stmt"/>
     </file>
   </project>
 </coverage>

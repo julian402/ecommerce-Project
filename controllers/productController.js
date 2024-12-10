@@ -1,7 +1,7 @@
 import Product from "../models/Product.js";
 import ProductCategory from "../models/ProductCategory.js";
 
-async function getAll(req, res) {
+export async function getAll(req, res) {
   try {
     const products = await Product.find({ deleteAt: null }).populate(
       "category",
@@ -10,7 +10,7 @@ async function getAll(req, res) {
     console.log(`[Product getAll]: ${req}`);
     return res.status(200).json(products);
   } catch (error) {
-    console.log(error);
+    return res.status(500).json(error.message)
   }
 }
 
@@ -26,7 +26,7 @@ async function getAll(req, res) {
 //   }
 // }
 
-async function getAllByName(req, res) {
+export async function getOneById(req, res) {
   try {
     const product = await Product.findById(req.params.id).populate("category");
     if (product.deletedAt !== null) {
@@ -35,11 +35,11 @@ async function getAllByName(req, res) {
       res.status(404).json("Producto no encontrado");
     }
   } catch (error) {
-    res.status(500).json("Error del servidor");
+    res.status(500).json(error.message);
   }
 }
 
-async function create(req, res) {
+export async function create(req, res) {
   try {
     const { name, size, stock, price, category, brand, description, sale } =
       req.body;
@@ -67,7 +67,7 @@ async function create(req, res) {
   }
 }
 
-async function update(req, res) {
+export async function update(req, res) {
   try {
     const product = await Product.findById(req.body.id);
     if (product !== null) {
@@ -97,7 +97,7 @@ async function update(req, res) {
   }
 }
 
-async function destroy(req, res) {
+export async function destroy(req, res) {
   try {
     const producToDelete = await Product.findById(req.body.id);
     if (producToDelete !== null) {
@@ -112,4 +112,4 @@ async function destroy(req, res) {
   }
 }
 
-export default { getAll, getAllByName, create, update, destroy };
+export default { getAll, getOneById, create, update, destroy };

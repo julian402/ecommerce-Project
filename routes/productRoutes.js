@@ -12,7 +12,7 @@ import tokenValidator from "../middleware/tokenValidator.js";
 const router = express.Router();
 
 router.get("/api/products", productController.getAll);
-router.get("/api/products/:id", productController.getAllByName);
+router.get("/api/products/:id", productController.getOneById);
 router.post(
   "/api/products",
   tokenValidator,

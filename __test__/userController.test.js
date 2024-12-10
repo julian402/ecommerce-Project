@@ -9,7 +9,6 @@ jest.unstable_mockModule("../models/User.js", () => ({
     find: jest.fn(),
     create: jest.fn(),
     findById: jest.fn(),
-    save: jest.fn(),
   },
 }));
 
@@ -138,13 +137,13 @@ describe("Create User", () => {
 describe("update User", () => {
   it("Deberia modificar el usuarios y devolver un mensaje de logrado y estatus 200", async () => {
     const mockUserRes = {
-        _id:'',
-        name: "Luis",
-        lastName: "Lozano",
-        email: "email@gmail.com",
-        password: "1245684Plo*",
-        typeUser: "Customer",
-        avatar: ''
+      _id: "",
+      name: "Luis",
+      lastName: "Lozano",
+      email: "email@gmail.com",
+      password: "1245684Plo*",
+      typeUser: "Customer",
+      avatar: "",
     };
 
     const mockUserReq = {
@@ -161,7 +160,11 @@ describe("update User", () => {
       },
     };
 
-    User.findById.mockResolvedValue(mockUserRes);
+    const mockIsntancia = { save: jest.fn() };
+
+    User.findById
+      .mockResolvedValue(mockUserRes)
+      .mockResolvedValueOnce(mockIsntancia);
 
     const req = mockUserReq;
     const res = {
@@ -171,14 +174,12 @@ describe("update User", () => {
 
     await userController.update(req, res);
 
-    User.save(true)
-
     expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith(mockUserReq);
+    expect(res.json).toHaveBeenCalledWith({message:'User Update - ok'});
   });
 
   it("Deberia generar un status 404 al no encontrar el usuario", async () => {
-     const mockUserReq = {
+    const mockUserReq = {
       auth: { id: "" },
       body: {
         name: "Luis",
@@ -202,10 +203,8 @@ describe("update User", () => {
 
     await userController.update(req, res);
 
-    User.save(true)
-
-    expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith(mockUserReq);
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ error: "User not found" });
   });
 
   it("Deberia arrojar un error con estatus 500", async () => {
@@ -241,28 +240,27 @@ describe("update User", () => {
   });
 });
 
-
-describe('Delete User',()=>{
-
+describe("Delete User", () => {
   it("Deberia eliminar el usuarior y devolver un mensaje de logrado y estatus 200", async () => {
-
     const mockUserRes = {
-        _id:'',
-        name: "Luis",
-        lastName: "Lozano",
-        email: "email@gmail.com",
-        password: "1245684Plo*",
-        typeUser: "Customer",
-        avatar: ''
+      _id: "",
+      name: "Luis",
+      lastName: "Lozano",
+      email: "email@gmail.com",
+      password: "1245684Plo*",
+      typeUser: "Customer",
+      avatar: "",
     };
+
+    const mockIsntancia = { save: jest.fn() };
 
     const mockUserReq = {
-      auth: { id: "" }
+      auth: { id: "" },
     };
 
-    const userToDelete = false
-
-    User.findById.mockResolvedValue(mockUserRes);
+    User.findById
+      .mockResolvedValue(mockUserRes)
+      .mockResolvedValueOnce(mockIsntancia);
 
     const req = mockUserReq;
     const res = {
@@ -272,10 +270,51 @@ describe('Delete User',()=>{
 
     await userController.destroy(req, res);
 
-    User.save(true)
-
     expect(res.status).toHaveBeenCalledWith(200);
-    expect(res.json).toHaveBeenCalledWith({ message: "User deleted successfully" });
+    expect(res.json).toHaveBeenCalledWith({
+      message: "User deleted successfully",
+    });
   });
 
-})
+  it('Deberia generar un estatus 404 al no encontrar el usuario a eliminar', async()=>{
+
+    const mockUserReq = {
+      auth: { id: "" },
+    };
+
+    User.findById
+      .mockResolvedValue(null)
+
+    const req = mockUserReq
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn()
+    }
+
+    await userController.destroy(req,res);
+
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ error: "User not exist" })
+
+  })
+
+  it('Deberia arrojar un error de estatus 500, al intentar ejecutar el controlador', async()=>{
+    const mockUserReq = {
+      auth: { id: "" },
+    };
+
+    User.findById
+      .mockRejectedValue(new Error ('Error al conectar a la Base de datos'))
+
+    const req = mockUserReq
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn()
+    }
+
+    await userController.destroy(req,res);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith('Error al conectar a la Base de datos')
+  })
+});
