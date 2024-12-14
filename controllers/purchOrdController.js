@@ -57,7 +57,7 @@ async function create(req, res) {
       products: products,
       user: req.auth.id,
       paymentMet: paymentMet,
-      address: location._id,
+      address: location?._id,
     });
     return res.status(201).json("Purchase Order create successfully");
   } catch (error) {

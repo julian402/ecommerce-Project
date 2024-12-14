@@ -35,6 +35,7 @@ const purchaseOrderSchema = mongoose.Schema(
     address: {
       type: mongoose.Types.ObjectId,
       ref: "Location",
+      default:null,
     },
     deleteAt: {
       type: Date,

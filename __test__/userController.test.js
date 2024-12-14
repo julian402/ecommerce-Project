@@ -103,6 +103,43 @@ describe("Create User", () => {
       message: "user create successfully",
     });
   });
+  it("Debería devolver un error 406 si el email ya está en uso", async () => {
+    const mockUserReq = {
+      body: {
+        name: "Luis",
+        lastName: "Lozano",
+        email: "email@gmail.com",
+        password: "1245684Plo*",
+        typeUser: "Customer",
+      },
+      file: {
+        filename: "userGeneric.png",
+      },
+    };
+  
+    const mockError = {
+      errors: {
+        email: {
+          kind: "unique",
+        },
+      },
+    };
+  
+    User.create.mockRejectedValue(mockError);
+  
+    const req = mockUserReq;
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+  
+    await userController.create(req, res);
+  
+    expect(res.status).toHaveBeenCalledWith(406);
+    expect(res.json).toHaveBeenCalledWith({
+      message: "email invalid prove other",
+    });
+  });
 
   it("Deberia arrojar un error con estatus 500", async () => {
     const mockUserReq = {

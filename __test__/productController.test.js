@@ -1,6 +1,5 @@
 import { describe, expect, jest } from "@jest/globals";
 
-
 beforeEach(() => {
   jest.clearAllMocks;
 });
@@ -14,19 +13,21 @@ jest.unstable_mockModule("../models/Product.js", () => ({
   },
 }));
 
-const productController = await import('../controllers/productController.js');
-const Product = (await import('../models/Product.js')).default;
+const productController = await import("../controllers/productController.js");
+const Product = (await import("../models/Product.js")).default;
 
-describe("get Product", () => {
-  it("Deberia devolver una lista con los productos de la base y un estatus 200", async () => {
-
+describe("getAll Products", () => {
+  it("Debería devolver una lista de productos con sus categorías y un estatus 200", async () => {
     const mockProducts = [
       {
         name: "Tennis 1",
         size: [12, 14, 15],
         stock: 154,
         price: 150000,
-        category:'oppnpi456456',
+        category: {
+          name: "Zapatos",
+          gender: "Male",
+        },
         brand: "Adidas",
         images: ["poop.png", "pokiuj.png"],
         deleteAt: null,
@@ -38,24 +39,20 @@ describe("get Product", () => {
         size: [12, 14, 15],
         stock: 121,
         price: 110000,
-        category:'ppoiipo15654opoop',
-        brand: "Rebbot",
+        category: {
+          name: "Zapatos Deportivos",
+          gender: "Female",
+        },
+        brand: "Reebok",
         images: ["popi.png", "lakiuj.png"],
         deleteAt: null,
-        description: "Un producto ....",
+        description: "Otro producto ....",
         sale: 0.23,
       },
     ];
-    const mockPopulate = {category:{
-      _id:'ppoiipo15654opoop',
-      name:'Zapatos',
-      gender:'Male'
-    }}
 
-    const mockInstPolulate = {populate: jest.fn()}
-
-    await Product.find.mockResolvedValue(mockProducts).mockResolvedValueOnce(mockInstPolulate)
-    // await Product.populate.mockResolvedValueOnce(mockPopulate);
+    const mockPopulate = jest.fn().mockResolvedValue(mockProducts);
+    Product.find.mockReturnValue({ populate: mockPopulate });
 
     const req = {};
     const res = {
@@ -65,12 +62,22 @@ describe("get Product", () => {
 
     await productController.getAll(req, res);
 
+    expect(Product.find).toHaveBeenCalledWith({ deleteAt: null });
+    expect(mockPopulate).toHaveBeenCalledWith("category", [
+      "-_id",
+      "name",
+      "gender",
+    ]);
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith(mockProducts);
   });
 
-  it("Deberia arrojar un error con estatus 500", async () => {
-    await Product.find.mockRejectedValue(new Error("Error en la conexion a la base"));
+  it("Debería arrojar un error con estatus 500", async () => {
+    Product.find.mockReturnValue({
+      populate: jest
+        .fn()
+        .mockRejectedValue(new Error("Error en la conexión a la base")),
+    });
 
     const req = {};
     const res = {
@@ -81,82 +88,367 @@ describe("get Product", () => {
     await productController.getAll(req, res);
 
     expect(res.status).toHaveBeenCalledWith(500);
-
-    expect(res.json).toHaveBeenCalledWith("Error en la conexion a la base");
+    expect(res.json).toHaveBeenCalledWith("Error en la conexión a la base");
   });
 });
 
-describe("Get One Product", () => {
-  it("deberia devolver un producto y un estatus 200", async () => {
-    const mockUser = {
-      _id: "Poiji154687",
-      name: "Luis",
-      lastName: "Lozano",
-      email: "email@gmail.com",
-      password: "1245684Plo*",
-      avatar: "userGeneric.png",
-      typeUser: "Customer",
+describe("getOneById Product", () => {
+  it("Debería devolver un producto y un estatus 200 si el producto existe", async () => {
+    const mockProduct = {
+      name: "Tennis 1",
+      size: [12, 14, 15],
+      stock: 154,
+      price: 150000,
+      category: {
+        _id: "category123",
+        name: "Zapatos",
+        gender: "Male",
+      },
+      brand: "Adidas",
+      images: ["poop.png", "pokiuj.png"],
       deleteAt: null,
+      description: "Un producto ....",
+      sale: 0.23,
     };
 
-    const mockReq = {
-      params: { id: "Poiji154687" },
-    };
+    const mockPopulate = jest.fn().mockResolvedValue(mockProduct);
+    Product.findById.mockReturnValue({ populate: mockPopulate });
 
-    await Product.findById.mockResolvedValue(mockUser);
-
-    const req = mockReq;
+    const req = { params: { id: "product123" } };
     const res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
 
     await productController.getOneById(req, res);
-    expect(res.status).toHaveBeenCalledWith(200);
 
-    expect(res.json).toHaveBeenCalledWith(mockUser);
+    expect(Product.findById).toHaveBeenCalledWith("product123");
+    expect(mockPopulate).toHaveBeenCalledWith("category");
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith(mockProduct);
   });
 
-  it("Deberia generar un error al no encontrar el usuario y arrojar un error 404", () => {
-    const mockReq = {
-      params: { id: "Poiji154687" },
-    };
-    Product.findById.mockResolvedValue(null);
+  it("Debería devolver un error 404 si el producto no existe", async () => {
+    const mockProduct = { deletedAt: null };
+    const mockPopulate = jest.fn().mockResolvedValue(mockProduct);
+    Product.findById.mockReturnValue({ populate: mockPopulate });
 
-    const req = mockReq;
+    const req = { params: { id: "product123" } };
     const res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
 
-    productController.getOneById(req, res);
+    await productController.getOneById(req, res);
 
-    expect(res.status).toHaveBeenLastCalledWith(404);
+    expect(Product.findById).toHaveBeenCalledWith("product123");
+    expect(mockPopulate).toHaveBeenCalledWith("category");
+    expect(res.status).toHaveBeenCalledWith(404);
     expect(res.json).toHaveBeenCalledWith("Producto no encontrado");
   });
 
-  it('Deberia arrojar un estatus 500 al presentar un error en la consulta',async()=>{
-    const mockReq = {
-      params: { id: "Poiji154687" },
-    };
+  it("Debería arrojar un error con estatus 500 en caso de un fallo en la base de datos", async () => {
+    const mockPopulate = jest
+      .fn()
+      .mockRejectedValue(new Error("Error en la conexión a la base"));
+    Product.findById.mockReturnValue({ populate: mockPopulate });
 
-    // await Product.findById.mockRejectedValue();
-
-    const req = mockReq;
+    const req = { params: { id: "product123" } };
     const res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
 
-    productController.getOneById(req, res);
+    await productController.getOneById(req, res);
 
-    expect(res.status).toHaveBeenLastCalledWith(500);
-    expect(res.json).toHaveBeenCalledWith('Error en la conexion a la base');
-  })
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith("Error en la conexión a la base");
+  });
 });
 
-// // describe('Create Product',()=>{
-// // it('Deberia Crear un producto y devolver el estatus 201',()=>{
+describe("create Product", () => {
+  it("Deberia devolver el producto creado y un estatus 200", async () => {
+    const mockProductsReq = {
+      body: {
+        name: "Tennis 1",
+        size: [12, 14, 15],
+        stock: 154,
+        price: 150000,
+        category: "polojj",
+        brand: "Adidas",
+        description: "Un producto ....",
+        sale: 0.23,
+      },
+      files: [{ filename: "userGeneric.png" }, { filename: "userGeneric.png" }],
+    };
 
-// // })
-// })
+    const mockRespose = { message: "product create" };
+
+    Product.create.mockReturnValue({
+      push: jest.fn().mockResolvedValue(mockRespose),
+    });
+
+    const req = mockProductsReq;
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+
+    await productController.create(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(200);
+
+    expect(res.json).toHaveBeenCalledWith({
+      message: "Product create successfully",
+    });
+  });
+
+  it("Debaria arrojar un error 500", async () => {
+    const mockProductsReq = {
+      body: {
+        name: "Tennis 1",
+        size: [12, 14, 15],
+        stock: 154,
+        price: 150000,
+        category: "polojj",
+        brand: "Adidas",
+        description: "Un producto ....",
+        sale: 0.23,
+      },
+      files: [{ filename: "userGeneric.png" }, { filename: "userGeneric.png" }],
+    };
+
+    Product.create.mockRejectedValue(
+      new Error("Error en la conexión a la base")
+    );
+
+    const req = mockProductsReq;
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+
+    await productController.create(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith("Error en la conexión a la base");
+  });
+});
+
+describe("update Products", () => {
+  it("Deberia permitir actualizar la informacion de un producto y devolver un estatus 200", async () => {
+    const mockReqProduct = {
+      body: {
+        id: "polki1454poki",
+        name: "Tennis 1",
+        size: [12, 14, 15],
+        stock: 154,
+        price: 150000,
+        category: "polojj",
+        brand: "Adidas",
+        description: "Un producto ....",
+        sale: 0.23,
+      },
+      files: [{ filename: "userGeneric.png" }, { filename: "userGeneric.png" }],
+    };
+
+    const mockProduct = {
+      name: "Tennis 1",
+      size: [12, 14, 15],
+      stock: 154,
+      price: 150000,
+      category: {
+        _id: "category123",
+        name: "Zapatos",
+        gender: "Male",
+      },
+      brand: "Adidas",
+      images: ["poop.png", "pokiuj.png"],
+      deleteAt: null,
+      description: "Un producto ....",
+      sale: 0.23,
+    };
+
+    const mockProductFinal = {
+      id: "polki1454poki",
+      name: "Tennis 1",
+      size: [12, 14, 15],
+      stock: 154,
+      price: 150000,
+      category: "polojj",
+      brand: "Adidas",
+      images: ["poop.png", "pokiuj.png"],
+      deleteAt: null,
+      description: "Un producto ....",
+      sale: 0.23,
+    };
+
+    const mockIsntancia = { save: jest.fn() };
+
+    Product.findById
+      .mockReturnValue({ push: jest.fn().mockResolvedValue(mockProduct) })
+      .mockResolvedValueOnce(mockIsntancia);
+
+    const req = mockReqProduct;
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+
+    await productController.update(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(200);
+    // expect(res.json).toHaveBeenCalledWith(mockProductFinal);
+  });
+
+  it("Deberia devolver un error 404 al no encontrar un producto", async () => {
+    const mockReqProduct = {
+      body: {
+        id: "polki1454poki",
+        name: "Tennis 1",
+        size: [12, 14, 15],
+        stock: 154,
+        price: 150000,
+        category: "polojj",
+        brand: "Adidas",
+        description: "Un producto ....",
+        sale: 0.23,
+      },
+      files: [{ filename: "userGeneric.png" }, { filename: "userGeneric.png" }],
+    };
+    const mockProduct = null;
+
+    Product.findById.mockReturnValue(mockProduct);
+
+    const req = mockReqProduct;
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+
+    await productController.update(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ error: "Product not found" });
+  });
+
+  it("Deberia arrojar un error 500 al fallar en la funcion", async () => {
+    const mockProductsReq = {
+      body: {
+        name: "Tennis 1",
+        size: [12, 14, 15],
+        stock: 154,
+        price: 150000,
+        category: "polojj",
+        brand: "Adidas",
+        description: "Un producto ....",
+        sale: 0.23,
+      },
+      files: [{ filename: "userGeneric.png" }, { filename: "userGeneric.png" }],
+    };
+
+    const mockintancia = {save: jest.fn().mockRejectedValue(new Error("opopop"))};
+
+    const mockPush = jest.fn().mockRejectedValue(new Error("opopop"));
+
+  
+    Product.findById
+      .mockReturnValue({ push: mockPush }).mockRejectedValueOnce(mockintancia)
+
+    const req = mockProductsReq;
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+
+    await productController.update(req, res);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+  });
+});
+
+describe("destroy Products", ()=>{
+  it("Deberia cambiar el campo deleteAt y devolver un estatus 200", async()=>{
+
+    const mockReqId = {
+      body: {
+        id: "polki1454poki",
+      }};
+
+      const mockProduct = {
+        name: "Tennis 1",
+        size: [12, 14, 15],
+        stock: 154,
+        price: 150000,
+        category: {
+          _id: "category123",
+          name: "Zapatos",
+          gender: "Male",
+        },
+        brand: "Adidas",
+        images: ["poop.png", "pokiuj.png"],
+        deleteAt: null,
+        description: "Un producto ....",
+        sale: 0.23,
+      };
+
+      const mockIsntancia = { save: jest.fn() };
+
+      Product.findById.mockReturnValue({push: jest.fn().mockResolvedValue(mockProduct)}).mockResolvedValueOnce(mockIsntancia);
+
+      const req = mockReqId;
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn(),
+      }
+
+      await productController.destroy(req,res);
+
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith({ message: "Product deleted successfully" })
+  })
+
+  it("Deberia arrojar un error con estarus 404 al no encontrar el producto a eliminar", async ()=>{
+
+    const mockReqId = {
+      body:{
+        id: "poldjof4652561pojpo"
+      }
+    };
+
+    Product.findById.mockResolvedValue(null);
+
+    const req = mockReqId;
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    }
+
+    await productController.destroy(req,res);
+
+    expect(res.status).toHaveBeenCalledWith(404);
+    expect(res.json).toHaveBeenCalledWith({ error: "Product not exist" });
+  })
+
+  it("Deberia arrojar un error con estatus 500, al presentar algun otro error",async ()=> {
+    
+    const mockReqId = {
+      body:{
+        id:"polkfi165489Pjijdo"
+      }
+    };
+
+    Product.findById.mockRejectedValue(new Error ("Error en la conexion de la base de datos"));
+
+    const req = mockReqId;
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn()
+    }
+
+    await productController.destroy(req,res);
+
+    expect(res.status).toHaveBeenCalledWith(500);
+    expect(res.json).toHaveBeenCalledWith("Error en la conexion de la base de datos")
+  })
+})

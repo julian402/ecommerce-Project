@@ -63,7 +63,7 @@ export async function create(req, res) {
 
     return res.status(200).json({ message: `Product create successfully` });
   } catch (error) {
-    console.log(error);
+    res.status(500).json(error.message);
   }
 }
 
@@ -93,7 +93,7 @@ export async function update(req, res) {
       return res.status(404).json({ error: "Product not found" });
     }
   } catch (error) {
-    console.log(error);
+    res.status(500).json(error.message);
   }
 }
 
@@ -108,7 +108,7 @@ export async function destroy(req, res) {
       return res.status(404).json({ error: "Product not exist" });
     }
   } catch (error) {
-    console.log(error);
+    res.status(500).json(error.message);
   }
 }
 
