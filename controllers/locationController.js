@@ -1,7 +1,7 @@
 import Location from "../models/Location.js";
 import User from "../models/User.js";
 
-async function getAll(req, res) {
+export async function getAll(req, res) {
   try {
     const locations = await Location.find({ deleteAt: null }).populate("user", [
       "-_id",
@@ -11,30 +11,24 @@ async function getAll(req, res) {
     ]);
     return res.status(200).json({ locations });
   } catch (error) {
-    res.status(500).json({ message: "Error al obtener ubicaciones", error });
+    res.status(500).json(error.message);
   }
 }
 
-async function getLocationById(req, res) {
+export async function getLocationById(req, res) {
   try {
-    const location = await Location.find({user: req.auth.id}).populate("user", [
-      "-_id",
-      "name",
-      "lastName",
-      "email",
-    ]);
-
-    if (location) {
-      return res.status(200).json(location);
+    const location = await Location.findById(req.params.id).populate("user");
+    if (location.deletedAt !== null) {
+      res.status(200).json(location);
+    } else {
+      res.status(404).json("Location no encontrado");
     }
-    return res.status(404).json({ message: "Location not found" });
   } catch (error) {
-    console.error(error);
-    return res.status(500).json({ message: "Internal server error" });
+    res.status(500).json(error.message);
   }
 }
 
-async function create(req, res) {
+export async function create(req, res) {
   try {
     const { city, zipCode, address } = req.body;
     const user = req.auth.id;
@@ -47,11 +41,11 @@ async function create(req, res) {
     return res.status(201).json("Location create successfully");
   } catch (error) {
     console.log(error);
-    return res.status(500).json("Internal server error");
+    return res.status(500).json(error.message);
   }
 }
 
-async function update(req, res) {
+export async function update(req, res) {
   try {
     const updateLocation = await Location.findById(req.body.id);
     if (updateLocation) {
@@ -68,11 +62,11 @@ async function update(req, res) {
     }
   } catch (error) {
     console.log(error);
-    return res.status(500).json("Internal server error");
+    return res.status(500).json(error.message);
   }
 }
 
-async function destroy(req, res) {
+export async function destroy(req, res) {
   try {
     const locationToDelete = await Location.findById(req.body.id);
 
@@ -80,11 +74,12 @@ async function destroy(req, res) {
       locationToDelete.deleteAt = Date.now();
       locationToDelete.save();
       return res.status(200).json({ message: "Location delete successfully" });
+    } else {
+      return res.status(404).json({ error: "Location not found" });
     }
-    return res.json({ message: "Not exist Location with this id" });
   } catch (error) {
     console.log(error);
-    return res.status(500).json("Internal server error");
+    return res.status(500).json(error.message);
   }
 }
 
