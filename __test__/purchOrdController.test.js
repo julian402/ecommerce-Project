@@ -1,7 +1,7 @@
 import { describe, expect, jest } from "@jest/globals";
 
 beforeEach(() => {
-  jest.clearAllMocks(); // Añadir paréntesis para ejecutar la función
+  jest.clearAllMocks();
 });
 
 jest.unstable_mockModule("../models/PurchaseOrder.js", () => ({
@@ -38,27 +38,23 @@ describe("Get All", () => {
       createdAt: "2024-12-15T12:34:56.789Z",
       updatedAt: "2024-12-15T12:34:56.789Z",
     };
-    // Configuración del mock para las llamadas encadenadas a populate
-    const mockPopulate = jest.fn().mockReturnThis(); // Permite el encadenamiento
+
+    const mockPopulate = jest.fn().mockReturnThis();
     PurchaseOrder.find.mockReturnValue({
       populate: mockPopulate,
       exec: jest.fn().mockResolvedValue([mockPurchaseOrder]),
     });
 
-    // Simulación de los objetos req y res
     const req = {};
     const res = {
       status: jest.fn().mockReturnThis(),
       json: jest.fn(),
     };
 
-    // Llamada al controlador
     await purchOrdController.default.getAll(req, res);
 
-    // Verificaciones
     expect(PurchaseOrder.find).toHaveBeenCalledWith({ deleteAt: null });
 
-    // Verificar que populate fue llamado tres veces con los argumentos correctos
     expect(mockPopulate).toHaveBeenCalledTimes(3);
     expect(mockPopulate).toHaveBeenNthCalledWith(1, "user", [
       "-_id",
@@ -128,10 +124,10 @@ describe("Get By User ID", () => {
     ];
 
     const mockPopulate = jest.fn().mockReturnThis();
-    // La última llamada debe resolver la promesa con las órdenes
+
     mockPopulate.mockReturnValueOnce({
       populate: mockPopulate.mockReturnThis(),
-      then: (cb) => cb(mockOrders), // Simula el await final del query
+      then: (cb) => cb(mockOrders),
     });
 
     PurchaseOrder.find.mockReturnValue({
@@ -151,7 +147,7 @@ describe("Get By User ID", () => {
     await purchOrdController.default.getByuserId(req, res);
 
     expect(PurchaseOrder.find).toHaveBeenCalledWith({ user: "user123" });
-    // Verificar que se llame a populate con los parámetros correctos
+
     expect(mockPopulate).toHaveBeenCalledWith("user", [
       "-_id",
       "name",
@@ -175,7 +171,7 @@ describe("Get By User ID", () => {
 
     mockPopulate.mockReturnValueOnce({
       populate: mockPopulate.mockReturnThis(),
-      then: (cb) => cb(null), // Simula que no se encontraron órdenes
+      then: (cb) => cb(null),
     });
 
     PurchaseOrder.find.mockReturnValue({
@@ -200,7 +196,6 @@ describe("Get By User ID", () => {
   });
 
   it("Debería retornar un error 500 si ocurre un error interno", async () => {
-    // Simulamos un error lanzado por la BD
     PurchaseOrder.find.mockImplementation(() => {
       throw new Error("Error interno de BD");
     });
@@ -224,7 +219,6 @@ describe("Get By User ID", () => {
 
 describe("Create PurchaseOrder", () => {
   it("Debería crear una orden de compra y retornar status 201 con el mensaje de éxito", async () => {
-    // Mocks
     const mockLocation = { _id: "location123", user: "user123" };
     Location.findOne = jest.fn().mockResolvedValue(mockLocation);
 
@@ -237,14 +231,13 @@ describe("Create PurchaseOrder", () => {
       address: "location123",
     });
 
-    // Datos de entrada
     const req = {
       auth: { id: "user123" },
       body: {
         amount: 100000,
         products: [{ product: "prod123", quantity: 1 }],
         paymentMet: "Credit_Card",
-        address: "location123", // Este campo se ignora ya que se toma la location encontrada
+        address: "location123",
       },
     };
     const res = {
@@ -252,10 +245,8 @@ describe("Create PurchaseOrder", () => {
       json: jest.fn(),
     };
 
-    // Llamada al controlador
     await purchOrdController.default.create(req, res);
 
-    // Verificaciones
     expect(Location.findOne).toHaveBeenCalledWith({ user: "user123" });
     expect(PurchaseOrder.create).toHaveBeenCalledWith({
       amount: 100000,
@@ -269,7 +260,6 @@ describe("Create PurchaseOrder", () => {
   });
 
   it("Debería crear la orden aunque no exista ubicación, estableciendo address como undefined", async () => {
-    // Si no existe la ubicación, location será null
     Location.findOne.mockResolvedValue(null);
 
     PurchaseOrder.create.mockResolvedValue({
@@ -278,7 +268,7 @@ describe("Create PurchaseOrder", () => {
       amount: 50000,
       products: [{ product: "prod456", quantity: 2 }],
       paymentMet: "PayPal",
-      address: undefined, // dirección no encontrada
+      address: undefined,
     });
 
     const req = {
@@ -309,7 +299,6 @@ describe("Create PurchaseOrder", () => {
   });
 
   it("Debería retornar un error 500 si ocurre un error interno", async () => {
-    // Simulamos que Location.findOne lanza un error
     Location.findOne.mockRejectedValue(new Error("Error interno"));
 
     const req = {
@@ -356,7 +345,7 @@ describe("Destroy PurchaseOrder", () => {
     await purchOrdController.default.destroy(req, res);
 
     expect(PurchaseOrder.findById).toHaveBeenCalledWith("order123");
-    expect(mockOrder.deleteAt).not.toBeNull(); // Se debería asignar una fecha
+    expect(mockOrder.deleteAt).not.toBeNull();
     expect(mockOrder.save).toHaveBeenCalled();
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalledWith({
