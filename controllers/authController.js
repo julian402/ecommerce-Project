@@ -20,6 +20,7 @@ async function login(req, res) {
     return res.status(401).json({ error: "Invalid Credentials" });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ error: "Server Error" });
   }
 }
 
