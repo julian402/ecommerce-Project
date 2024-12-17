@@ -13,7 +13,7 @@ describe("Auth Controller Tests", () => {
     jest.resetAllMocks();
   });
 
-  it("should return a token when credentials are valid", async () => {
+  it("Deberia retornar un token al enviar credenciales válidas", async () => {
     const mockUser = {
       _id: "1",
       email: "test@example.com",
@@ -35,7 +35,7 @@ describe("Auth Controller Tests", () => {
     expect(response.body.token).toBe("fakeToken");
   });
 
-  it("should return 401 when credentials are invalid", async () => {
+  it("Deberia retornar 401 al enviar credenciales inválidas", async () => {
     const mockUser = {
       _id: "1",
       email: "test@example.com",
@@ -55,7 +55,7 @@ describe("Auth Controller Tests", () => {
     expect(response.body.error).toBe("Invalid Credentials");
   });
 
-  it("should return 500 when there is a server error", async () => {
+  it("Deberia retornar 500 al producir un error en la conexión a la base de datos", async () => {
     User.findOne = jest.fn().mockRejectedValue(new Error("Database error"));
 
     const response = await request(app).post("/api/login").send({
