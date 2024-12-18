@@ -1,4 +1,3 @@
-//edison
 import ProductCategory from "../models/ProductCategory.js";
 
 async function getALL(req, res) {
@@ -71,8 +70,8 @@ async function destroy(req, res) {
       deleteProductCategory.deleteAt = Date.now();
       await deleteProductCategory.save();
       return res.json("La categoria se ha eliminado");
-    } else{
-      return res.status(404).json({error: "Catagory Not exist"})
+    } else {
+      return res.status(404).json({ error: "Catagory Not exist" });
     }
   } catch (error) {
     console.log(error);
