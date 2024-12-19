@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1734479065830" clover="3.2.0">
-  <project timestamp="1734479065831" name="All files">
-    <metrics statements="293" coveredstatements="261" conditionals="104" coveredconditionals="68" methods="41" coveredmethods="30" elements="438" coveredelements="359" complexity="0" loc="293" ncloc="293" packages="6" files="26" classes="26"/>
+<coverage generated="1734564701399" clover="3.2.0">
+  <project timestamp="1734564701400" name="All files">
+    <metrics statements="285" coveredstatements="255" conditionals="88" coveredconditionals="56" methods="33" coveredmethods="24" elements="406" coveredelements="335" complexity="0" loc="285" ncloc="285" packages="6" files="26" classes="26"/>
     <package name="ecommerce-Project">
-      <metrics statements="19" coveredstatements="12" conditionals="8" coveredconditionals="2" methods="2" coveredmethods="0"/>
-      <file name="server.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/server.js">
-        <metrics statements="19" coveredstatements="12" conditionals="8" coveredconditionals="2" methods="2" coveredmethods="0"/>
+      <metrics statements="18" coveredstatements="12" conditionals="6" coveredconditionals="2" methods="1" coveredmethods="0"/>
+      <file name="server.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\server.js">
+        <metrics statements="18" coveredstatements="12" conditionals="6" coveredconditionals="2" methods="1" coveredmethods="0"/>
         <line num="19" count="1" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
@@ -24,21 +24,19 @@
         <line num="46" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="47" count="0" type="stmt"/>
         <line num="48" count="0" type="stmt"/>
-        <line num="59" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
     </package>
     <package name="ecommerce-Project.config">
-      <metrics statements="14" coveredstatements="3" conditionals="4" coveredconditionals="0" methods="5" coveredmethods="0"/>
-      <file name="db.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/config/db.js">
-        <metrics statements="6" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="13" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <file name="db.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\config\db.js">
+        <metrics statements="5" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
         <line num="8" count="0" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
-        <line num="22" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
-      <file name="multerConfig.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/config/multerConfig.js">
+      <file name="multerConfig.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\config\multerConfig.js">
         <metrics statements="8" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="5" count="1" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
@@ -51,9 +49,9 @@
       </file>
     </package>
     <package name="ecommerce-Project.controllers">
-      <metrics statements="200" coveredstatements="200" conditionals="86" coveredconditionals="66" methods="30" coveredmethods="30"/>
-      <file name="CategoryControllers.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/controllers/CategoryControllers.js">
-        <metrics statements="36" coveredstatements="36" conditionals="16" coveredconditionals="14" methods="6" coveredmethods="6"/>
+      <metrics statements="194" coveredstatements="194" conditionals="74" coveredconditionals="54" methods="24" coveredmethods="24"/>
+      <file name="CategoryControllers.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\controllers\CategoryControllers.js">
+        <metrics statements="35" coveredstatements="35" conditionals="14" coveredconditionals="12" methods="5" coveredmethods="5"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
@@ -89,10 +87,9 @@
         <line num="72" count="1" type="stmt"/>
         <line num="74" count="1" type="stmt"/>
         <line num="77" count="1" type="stmt"/>
-        <line num="94" count="3" type="cond" truecount="2" falsecount="0"/>
       </file>
-      <file name="authController.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/controllers/authController.js">
-        <metrics statements="11" coveredstatements="11" conditionals="6" coveredconditionals="5" methods="2" coveredmethods="2"/>
+      <file name="authController.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\controllers\authController.js">
+        <metrics statements="10" coveredstatements="10" conditionals="4" coveredconditionals="3" methods="1" coveredmethods="1"/>
         <line num="6" count="3" type="stmt"/>
         <line num="7" count="3" type="stmt"/>
         <line num="10" count="2" type="cond" truecount="1" falsecount="1"/>
@@ -103,10 +100,9 @@
         <line num="20" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
-        <line num="36" count="1" type="cond" truecount="2" falsecount="0"/>
       </file>
-      <file name="locationController.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/controllers/locationController.js">
-        <metrics statements="39" coveredstatements="39" conditionals="14" coveredconditionals="11" methods="6" coveredmethods="6"/>
+      <file name="locationController.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\controllers\locationController.js">
+        <metrics statements="38" coveredstatements="38" conditionals="12" coveredconditionals="9" methods="5" coveredmethods="5"/>
         <line num="5" count="2" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
@@ -145,10 +141,9 @@
         <line num="78" count="1" type="stmt"/>
         <line num="81" count="1" type="stmt"/>
         <line num="82" count="1" type="stmt"/>
-        <line num="93" count="3" type="cond" truecount="2" falsecount="0"/>
       </file>
-      <file name="productController.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/controllers/productController.js">
-        <metrics statements="48" coveredstatements="48" conditionals="26" coveredconditionals="17" methods="6" coveredmethods="6"/>
+      <file name="productController.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\controllers\productController.js">
+        <metrics statements="47" coveredstatements="47" conditionals="24" coveredconditionals="15" methods="5" coveredmethods="5"/>
         <line num="5" count="2" type="stmt"/>
         <line num="6" count="2" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
@@ -196,10 +191,9 @@
         <line num="106" count="1" type="stmt"/>
         <line num="108" count="1" type="stmt"/>
         <line num="111" count="1" type="stmt"/>
-        <line num="122" count="1" type="cond" truecount="2" falsecount="0"/>
       </file>
-      <file name="purchOrdController.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/controllers/purchOrdController.js">
-        <metrics statements="29" coveredstatements="29" conditionals="6" coveredconditionals="6" methods="5" coveredmethods="5"/>
+      <file name="purchOrdController.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\controllers\purchOrdController.js">
+        <metrics statements="28" coveredstatements="28" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
         <line num="7" count="2" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
@@ -228,10 +222,9 @@
         <line num="80" count="1" type="stmt"/>
         <line num="82" count="1" type="stmt"/>
         <line num="83" count="1" type="stmt"/>
-        <line num="94" count="4" type="cond" truecount="2" falsecount="0"/>
       </file>
-      <file name="userController.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/controllers/userController.js">
-        <metrics statements="37" coveredstatements="37" conditionals="18" coveredconditionals="13" methods="5" coveredmethods="5"/>
+      <file name="userController.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\controllers\userController.js">
+        <metrics statements="36" coveredstatements="36" conditionals="16" coveredconditionals="11" methods="4" coveredmethods="4"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
@@ -268,37 +261,36 @@
         <line num="63" count="1" type="stmt"/>
         <line num="66" count="1" type="stmt"/>
         <line num="67" count="1" type="stmt"/>
-        <line num="83" count="5" type="cond" truecount="2" falsecount="0"/>
       </file>
     </package>
     <package name="ecommerce-Project.middleware">
       <metrics statements="15" coveredstatements="4" conditionals="6" coveredconditionals="0" methods="3" coveredmethods="0"/>
-      <file name="locationValidator.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/middleware/locationValidator.js">
+      <file name="locationValidator.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\middleware\locationValidator.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="3" count="1" type="stmt"/>
       </file>
-      <file name="productValidator.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/middleware/productValidator.js">
+      <file name="productValidator.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\middleware\productValidator.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="3" count="1" type="stmt"/>
       </file>
-      <file name="tokenValidator.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/middleware/tokenValidator.js">
+      <file name="tokenValidator.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\middleware\tokenValidator.js">
         <metrics statements="3" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="2" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="3" count="0" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
       </file>
-      <file name="typeUserValidator.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/middleware/typeUserValidator.js">
+      <file name="typeUserValidator.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\middleware\typeUserValidator.js">
         <metrics statements="4" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="4" count="0" type="stmt"/>
         <line num="6" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="7" count="0" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
       </file>
-      <file name="userValidator.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/middleware/userValidator.js">
+      <file name="userValidator.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\middleware\userValidator.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="3" count="1" type="stmt"/>
       </file>
-      <file name="validateFields.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/middleware/validateFields.js">
+      <file name="validateFields.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\middleware\validateFields.js">
         <metrics statements="5" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
@@ -309,27 +301,27 @@
     </package>
     <package name="ecommerce-Project.models">
       <metrics statements="15" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="Location.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/models/Location.js">
+      <file name="Location.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\models\Location.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="4" count="2" type="stmt"/>
         <line num="32" count="2" type="stmt"/>
       </file>
-      <file name="Product.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/models/Product.js">
+      <file name="Product.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\models\Product.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="4" count="2" type="stmt"/>
         <line num="49" count="2" type="stmt"/>
       </file>
-      <file name="ProductCategory.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/models/ProductCategory.js">
+      <file name="ProductCategory.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\models\ProductCategory.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="3" count="3" type="stmt"/>
         <line num="38" count="3" type="stmt"/>
       </file>
-      <file name="PurchaseOrder.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/models/PurchaseOrder.js">
+      <file name="PurchaseOrder.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\models\PurchaseOrder.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="6" count="1" type="stmt"/>
         <line num="50" count="1" type="stmt"/>
       </file>
-      <file name="User.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/models/User.js">
+      <file name="User.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\models\User.js">
         <metrics statements="7" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="6" count="3" type="stmt"/>
         <line num="41" count="3" type="stmt"/>
@@ -342,7 +334,7 @@
     </package>
     <package name="ecommerce-Project.routes">
       <metrics statements="30" coveredstatements="30" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="CategoriRoutes.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/routes/CategoriRoutes.js">
+      <file name="CategoriRoutes.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\routes\CategoriRoutes.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="8" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
@@ -351,12 +343,12 @@
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
       </file>
-      <file name="authRoutes.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/routes/authRoutes.js">
+      <file name="authRoutes.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\routes\authRoutes.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="4" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
       </file>
-      <file name="locationRoutes.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/routes/locationRoutes.js">
+      <file name="locationRoutes.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\routes\locationRoutes.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="8" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
@@ -365,7 +357,7 @@
         <line num="21" count="1" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
       </file>
-      <file name="productRoutes.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/routes/productRoutes.js">
+      <file name="productRoutes.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\routes\productRoutes.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="12" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
@@ -374,7 +366,7 @@
         <line num="26" count="1" type="stmt"/>
         <line num="34" count="1" type="stmt"/>
       </file>
-      <file name="purchOrdRoutes.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/routes/purchOrdRoutes.js">
+      <file name="purchOrdRoutes.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\routes\purchOrdRoutes.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="7" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
@@ -382,7 +374,7 @@
         <line num="21" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
       </file>
-      <file name="userRoutes.js" path="/Users/julianmateocorredor/Desktop/ecommerce-Project/routes/userRoutes.js">
+      <file name="userRoutes.js" path="D:\Cursos\Desarrollo_web_Bootcamp\Modulo_02\Respaldo\ecommerce-Project\routes\userRoutes.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="10" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
