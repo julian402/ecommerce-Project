@@ -7,7 +7,6 @@ export async function getAll(req, res) {
       "category",
       ["-_id", "name", "gender"]
     );
-    console.log(`[Product getAll]: ${req}`);
     return res.status(200).json(products);
   } catch (error) {
     return res.status(500).json(error.message)
